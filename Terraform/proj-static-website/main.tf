@@ -36,7 +36,6 @@ resource "aws_s3_bucket_public_access_block" "example" {
 
 resource "aws_s3_bucket_policy" "mywebapp-bucket-policy" {
   bucket = aws_s3_bucket.mywebapp-bucket.id
-
   policy = jsonencode({
     Version = "2012-10-17"
     Statement = [
@@ -65,22 +64,19 @@ resource "aws_s3_bucket_website_configuration" "mywebapp" {
 
 resource "aws_s3_object" "index_html" {
     bucket = aws_s3_bucket.mywebapp-bucket.bucket
-    source = "./gardenwalkthrough/index.html" # Path to the file you want to upload
+    source = "./index.html" # Path to the file you want to upload
     key = "index.html"
+    content_type = "text/html"
  
 }
 
 resource "aws_s3_object" "style_css" {
     bucket = aws_s3_bucket.mywebapp-bucket.bucket
-    source = "./gardenwalkthrough/css/style.css" # Path to the file you want to upload
+    source = "./style.css" # Path to the file you want to upload
     key = "style.css"
- 
+    content_type = "text/css"
 }
 
-resource "aws_s3_object" "images_png" {
-    bucket = aws_s3_bucket.mywebapp-bucket.bucket
-    source = "./gardenwalkthrough/images" # Path to the file you want to upload
-    key = "images"
- 
+output "name" {
+  value = aws_s3_bucket_website_configuration.mywebapp.website_endpoint
 }
-
