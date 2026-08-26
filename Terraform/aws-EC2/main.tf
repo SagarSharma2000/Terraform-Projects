@@ -9,7 +9,7 @@ terraform {
 
 provider "aws" {
   # Configuration options
-  region = "ap-south-1"
+  region = var.aws_region
 }
 
 resource "aws_instance" "my_instance" {
@@ -20,3 +20,4 @@ resource "aws_instance" "my_instance" {
     Name = "MyInstance"
   }
 }
+
