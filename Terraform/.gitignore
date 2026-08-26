@@ -1,0 +1,32 @@
+# ==========================================
+# Terraform .gitignore (Standard Configuration)
+# ==========================================
+
+# 1. Environment & Secret files
+*.env
+*.tfvars
+*.tfvars.json
+
+# 2. Local State Files (Sensitive data & local state)
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+*.terraform.tfstate
+*.terraform.tfstate.hcl
+
+# 3. Terraform Directory & Internal Files
+.terraform/
+*.terraform
+
+# 4. Dependency Lock File (Optional - local overrides)
+# Note: Team projects me *.lock.hcl ko Git me commit karna recommended hota hai 
+# taaki sab same provider versions use karein, par agar aap ise ignore karna chahein to ignore kar sakte hain.
+.terraform.lock.hcl
+
+# 5. Overrides & Crash Logs
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+crash.log
+crash.*.log
