@@ -13,8 +13,8 @@ provider "aws" {
 }
 
 resource "aws_instance" "my_instance" {
-    ami           = "ami-01a00762f46d584a1" # Replace with your desired AMI ID
-    instance_type = "t3.small" # Replace with your desired instance type    
+    ami           = "ami-01a00762f46d584a1" # Ubuntu AMI ID for ap-south-1 region (as of the time of writing)
+    instance_type = "t3.micro" # Free tier eligible instance type    
   
   tags = {
     Name = "MyInstance"
