@@ -12,66 +12,17 @@ provider "aws" {
   region = "ap-south-1"
 }
 
-data "aws_ami" "name" {
- most_recent = true
- owners      = ["amazon"] 
-}
 
-output "aws_ami" {
-    value = data.aws_ami.name.id
-}
 
-data "aws_security_group" "name" {
-    tags = {
-        mywebserver = "http"
-    }
-}
-
-output "security_group_id" {
-    value = data.aws_security_group.name.id
-}
-
-data "aws_vpc" "name" {
-    tags = {
-        Name = "myvpc"
-    }
-}
-output "vpc_id" {
-    value = data.aws_vpc.name.id
-}
-
-data "aws_availability_zones" "available" {
-    state = "available"
-}
-output "availability_zones" {
-    value = data.aws_availability_zones.available.names
-}
-
-#To get the account details
-data "aws_caller_identity" "current" {}
-output "account_id" {
-    value = {
-     id = data.aws_caller_identity.current.account_id
-     arn = data.aws_caller_identity.current.arn
-     user_id = data.aws_caller_identity.current.user_id
-}
-}
-
-#To get the region details
-data "aws_region" "current" {}
-output "region" {
-    value = {
-      region  = data.aws_region.current.region
-      description = data.aws_region.current.description
-      endpoint = data.aws_region.current.endpoint
-}
-}
 
 resource "aws_instance" "my_instance" {
-    ami           = data.aws_ami.name.id
-    instance_type = "t3.micro" # Free tier eligible instance type    
+    ami           = "ami-0ac7b260cf76d8865"
+    instance_type = "t3.micro" # Free tier eligible instance type
+    subnet_id     = data.aws_subnet.my_subnet_ids.id # Use the first subnet from the list
+    vpc_security_group_ids = [data.aws_security_group.name.id] # Use the security    
   
   tags = {
     Name = "MyInstance"
   }
 }
+
