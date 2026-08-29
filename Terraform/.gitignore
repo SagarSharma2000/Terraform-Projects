@@ -4,7 +4,6 @@
 
 # 1. Environment & Secret files
 *.env
-*.tfvars
 *.tfvars.json
 
 # 2. Local State Files (Sensitive data & local state)

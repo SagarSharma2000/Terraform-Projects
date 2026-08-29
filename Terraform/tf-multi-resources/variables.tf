@@ -4,3 +4,11 @@ variable "aws_region" {
     default = "ap-south-1"
   
 }
+
+variable "ec2_config" {
+    type = list(object({
+      ami = string 
+      instance_type =  string
+    }))
+}
+
