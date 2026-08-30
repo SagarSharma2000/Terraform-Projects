@@ -52,17 +52,36 @@ resource "aws_subnet" "my_subnet" {
 
 #Creating for EC2 Instance Task 3
 resource "aws_instance" "my_instance" {
-  count = length(var.ec2_config)
+ 
+ /* # Used in Task 3
+  count = length(var.ec2_config)  */
 
+ for_each = var.ec2_map  #We will get each.key and each.value
+
+ /* # Used in Task 3
   ami   = var.ec2_config[count.index].ami
   instance_type = var.ec2_config[count.index].instance_type
 
 subnet_id = element(aws_subnet.my_subnet[*].id, count.index% length(aws_subnet.my_subnet))
 #0%2 = 0
 #1%2 = 1
+*/
+
+ami = each.value.ami
+instance_type = each.value.instance_type
+subnet_id = element(aws_subnet.my_subnet[*].id, index(keys(var.ec2_map), each.key) % length(aws_subnet.my_subnet))
+ tags = {
+  Name = "${local.project}-instance-${each.key}"
+}
+
+/* # Used in Task 3
   tags = {
     Name = "${local.project}-instance-${count.index}-subnet-${count.index % length(aws_subnet.my_subnet)}"
   }
+  */
+
+
+
 }
 
 output "aws_subnet_id" {
