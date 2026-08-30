@@ -5,6 +5,7 @@
 # 1. Environment & Secret files
 *.env
 *.tfvars.json
+*.terraform.lock.hcl
 
 # 2. Local State Files (Sensitive data & local state)
 *.tfstate
